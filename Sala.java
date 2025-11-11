@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public abstract class Sala {
     private String nome;
     private int numero;
@@ -27,4 +29,20 @@ public abstract class Sala {
         return bloco;
     }
 
+    public abstract String getDescicao();
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Sala sala = (Sala) obj;
+
+        return numero == sala.numero;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numero);
+    }
 }
