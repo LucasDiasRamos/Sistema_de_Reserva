@@ -29,7 +29,7 @@ public abstract class Sala {
         return bloco;
     }
 
-    public abstract String getDescicao();
+    public abstract String getDescricao();
 
     @Override
     public boolean equals(Object obj) {
