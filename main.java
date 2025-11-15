@@ -1,4 +1,6 @@
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class main {
@@ -81,6 +83,73 @@ public class main {
 
         }
     }
+
+    private static Professor selecionarProfessor(){
+        List<Professor> professores = sistemaDeReservas.getListaDeProfessores();
+        while (true) {
+            System.out.println("\n--- Selecione o Professor ---");
+            for (int i = 0; i < professores.size(); i++) {
+                System.out.printf("%d. %s\n", (i+1) , professores.get(i).toString());
+            }
+            try{
+                int opcao = scanner.nextInt();
+                scanner.nextLine();
+                if (opcao > 0 && opcao <= professores.size()){
+                    return professores.get(opcao - 1);
+                } else {
+                    System.out.println("Opção inválida. Tente novamente.");
+                }
+            } catch(InputMismatchException e){
+                System.out.println("Entrada inválida. Tente novamente.");
+                scanner.nextLine(); 
+            }
+        }
+    }
+
+    private static Sala selecionarSala(){
+        List<Sala> salas = sistemaDeReservas.getListaDeSalas();
+        while (true) {
+            System.out.println("\n--- Selecione a Sala ---");
+            for (int i = 0; i < salas.size(); i++) {
+                System.out.printf("%d. %s\n", (i+1) , salas.get(i).toString());
+            }
+            try{
+                int opcao = scanner.nextInt();
+                scanner.nextLine();
+                if (opcao > 0 && opcao <= salas.size()){
+                    return salas.get(opcao - 1);
+                } else {
+                    System.out.println("Opção inválida. Tente novamente.");
+                }
+            } catch(InputMismatchException e){
+                System.out.println("Entrada inválida. Tente novamente.");
+                scanner.nextLine(); 
+            }
+        }
+    }
+
+
+
+
+
+
+
+    private static void fazerReserva(){
+        System.out.println("\n --- Fazer Reserva ---");
+        if (sistemaDeReservas.getListaDeProfessores().isEmpty()) {
+            System.out.println("ERRO: Nenhum professor Cadastrado no sistema.");
+            return;
+        }
+        if (sistemaDeReservas.getListaDeSalas().isEmpty()) {
+            System.out.println("ERRO: Nenhuma sala Cadastrada no sistema.");
+        }
+        else{
+            Professor professor = selecionarProfessor();
+            Sala sala = selecionarSala();
+        }
+
+    }
+
 
     
 }
