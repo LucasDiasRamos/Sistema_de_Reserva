@@ -134,12 +134,12 @@ public class Main {
         Sala sala = selecionarSala();
         Turno turno = selecionarTurno();
 
+         System.out.print("Digite o código da turma: ");    
+        String codTurma = scanner.nextLine();
+
         System.out.println("Tipo de Reserva (1 - Única, 2 - Periodo): ");
         int tipoReserva = scanner.nextInt();
         scanner.nextLine();
-
-        System.out.print("Digite o código da turma: ");    
-        String codTurma = scanner.nextLine();
         
 
         if (tipoReserva == 1) {
