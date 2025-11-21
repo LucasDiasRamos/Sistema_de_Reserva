@@ -11,9 +11,10 @@ public class Main {
     private static final SistemaDeReservas sistemaDeReservas = new SistemaDeReservas();
 
     public static void main(String[] args) {
-
+        cadastrarDadosIniciais();
         int opcao;
         do {
+            
             Menu();
             opcao = scanner.nextInt();
             scanner.nextLine();
@@ -84,11 +85,9 @@ public class Main {
 
         System.out.print("Nome da Sala: ");
         String Nome = scanner.nextLine();
-        scanner.nextLine();
 
         System.out.print("Número da Sala: ");
         int numero = scanner.nextInt();
-        scanner.nextLine();
 
         System.out.print("Capacidade da Sala: ");
         int capacidade = scanner.nextInt();
@@ -105,8 +104,8 @@ public class Main {
             System.out.println("Informe o Software Disponível (Ex: CAD ): ");
             String softwareDisponivel = scanner.nextLine();
 
-            Laboratorio laboratorio = new Laboratorio(Nome, numero, capacidade, bloco, quantidadeComputadores,
-                    softwareDisponivel);
+            Laboratorio laboratorio = new Laboratorio(Nome, numero, capacidade, bloco, quantidadeComputadores,softwareDisponivel);
+            sistemaDeReservas.adicionarSala(laboratorio);
         }
         
 
@@ -139,10 +138,14 @@ public class Main {
         int tipoReserva = scanner.nextInt();
         scanner.nextLine();
 
+        System.out.print("Digite o código da turma: ");    
+        String codTurma = scanner.nextLine();
+        
+
         if (tipoReserva == 1) {
 
             LocalDate data = lerData("Digite a data da Reserva (dd/mm/aaaa): ");
-            sistemaDeReservas.fazerReservaUnica(sala, professor, data, turno);
+            sistemaDeReservas.fazerReservaUnica(sala, professor, data, turno, codTurma);
 
         } else if (tipoReserva == 2) {
             LocalDate dataInicio = lerData("Digite a data de Início da Reserva (dd/mm/aaaa): ");
@@ -153,7 +156,7 @@ public class Main {
                 return;
             }
 
-            sistemaDeReservas.fazerReservaEmLote(sala, professor, dataInicio, dataFim, turno);
+            sistemaDeReservas.fazerReservaEmLote(sala, professor, dataInicio, dataFim, turno,codTurma);
         } else {
             System.out.println("Tipo de reserva inválido. Reserva cancelada.");
         }
@@ -195,11 +198,12 @@ public class Main {
         reservas.sort((r1, r2) -> r1.getData().compareTo(r2.getData()));
 
         for (Reserva reserva : reservas) {
-            System.out.printf("Data: %s | Sala: %s | Professor: %s | Turno: %s\n",
+            System.out.printf("Data: %s | %s | Professor: %s | Turno: %s\n | Código da Turma: %s\n",
                     reserva.getData().format(dateFormatter),
                     reserva.getSala().getNome(),
                     reserva.getProfessor().getNome(),
-                    reserva.getTurno().toString());
+                    reserva.getTurno().toString(),
+                    reserva.getCodTurma().toString());
 
         }
     }
@@ -276,11 +280,24 @@ public class Main {
             System.out.print(mensagem);
             String textoData = scanner.nextLine();
             try {
-                return LocalDate.parse(textoData, dateFormatter);
+                return LocalDate.parse(textoData, dateFormatter); // TO DO: COLOCAR PARA VALIDAR O ANO CASO O USARIO NÃO DIGITE NADA
             } catch (DateTimeException e) {
                 System.out.println("Formato de data inválido. Tente novamente usando dd/mm/aaaa.");
             }
         }
+    }
+
+    private static void cadastrarDadosIniciais() { //classe pra criar testes iniciais
+        
+        sistemaDeReservas.adicionarProfessor(new Professor("Dr. Silva", "1001", "silva@email.com"));
+        sistemaDeReservas.adicionarProfessor(new Professor("Dra. Costa", "1002", "costa@email.com"));
+        
+       
+        sistemaDeReservas.adicionarSala(new SalaDeAula("Sala 101", 101, 30, "Bloco A"));
+        sistemaDeReservas.adicionarSala(new Laboratorio("Laboratorio de informatica", 0, 25, "Blco B", 25, "Java, Python"));
+       
+        
+        System.out.println("Dados iniciais (professores e salas) carregados para teste.");
     }
 
 }

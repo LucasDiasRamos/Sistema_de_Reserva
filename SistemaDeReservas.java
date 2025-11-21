@@ -16,7 +16,7 @@ public class SistemaDeReservas {
 
     public void adicionarSala(Sala sala) {
         listaDeSalas.add(sala);
-        System.out.println("Sala " + sala.getNome() + " cadastrada com sucesso.");
+        System.out.println(sala.getNome() + " cadastrada com sucesso.");
     }
 
     public void adicionarProfessor(Professor professor) {
@@ -48,20 +48,20 @@ public class SistemaDeReservas {
         return false;
     }
 
-    public boolean fazerReservaUnica(Sala sala, Professor professor, LocalDate data, Turno turno) {
+    public boolean fazerReservaUnica(Sala sala, Professor professor, LocalDate data, Turno turno , String codTurma) {
         if (verificarConflito(sala, data, turno)) {
             System.out.println("ERRO: Está sala já esta reservada para essa data e turno.");
             return false;
         }
 
-        Reserva novaReserva = new Reserva(sala, professor, data, turno);
+        Reserva novaReserva = new Reserva(sala, professor, data, turno, codTurma);
         this.historicoDeReservas.add(novaReserva);
         System.out.println("SUCESSO: Reserva única realizada com sucesso.");
         return true;
     }
 
     public boolean fazerReservaEmLote(Sala sala, Professor professor, LocalDate dataInicio, LocalDate dataFim,
-            Turno turno) {
+            Turno turno, String codTurma) {
 
         List<LocalDate> datasParaReservar = new ArrayList<>();
         
@@ -79,11 +79,11 @@ public class SistemaDeReservas {
         }
 
         for (LocalDate data : datasParaReservar) {
-            Reserva novaReserva = new Reserva(sala, professor, data, turno);
+            Reserva novaReserva = new Reserva(sala, professor, data, turno, codTurma);
             this.historicoDeReservas.add(novaReserva);
         }
 
-        System.out.println("SUCESSO: Reserva de " + dataInicio + "até " + dataFim + " realizada com sucesso.");
+        System.out.println("SUCESSO: Reserva de " + dataInicio + " até " + dataFim + " realizada com sucesso.");
         return true;
     }
 

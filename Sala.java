@@ -45,4 +45,9 @@ public abstract class Sala {
     public int hashCode() {
         return Objects.hash(numero);
     }
+
+     @Override
+    public String toString() {
+        return getDescricao();
+    }
 }

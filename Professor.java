@@ -37,4 +37,10 @@ public class Professor {
     public int hashCode() {
         return Objects.hash(matricula);
     }
+
+    @Override
+    public String toString() {
+        return this.nome + " | Matrícula: " + this.matricula  ;
+    }
+
 }

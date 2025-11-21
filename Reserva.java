@@ -5,12 +5,14 @@ public class Reserva {
     private Professor professor;
     private LocalDate data;
     private Turno turno;
+    private String codTurma;
 
-    public Reserva(Sala sala, Professor professor, LocalDate data, Turno turno) {
+    public Reserva(Sala sala, Professor professor, LocalDate data, Turno turno, String codTurma) {
         this.sala = sala;
         this.professor = professor;
         this.data = data;
         this.turno = turno;
+        this.codTurma = codTurma;
     }
 
     public Sala getSala() {
@@ -27,5 +29,9 @@ public class Reserva {
 
     public Turno getTurno() {
         return turno;
+    }
+
+    public String getCodTurma() {
+        return codTurma;
     }
 }

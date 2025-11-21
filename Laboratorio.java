@@ -18,7 +18,7 @@ public class Laboratorio extends Sala {
 
     @Override
     public String getDescricao() {
-        return "Laboratorio" + getNome() + "(" + getBloco()+")"+ " com " + qtdComputadores + " computadores." +
+        return getNome() + "(" + getBloco()+")"+ " com " + qtdComputadores + " computadores." +
                 " Software instalado: " + software + "." ;
     }
 }
